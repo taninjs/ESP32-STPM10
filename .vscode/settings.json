@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "freertos.h": "c",
+        "gpio.h": "c",
+        "sdkconfig.h": "c",
+        "task.h": "c",
+        "spi_master.h": "c",
+        "ets_sys.h": "c"
+    }
+}

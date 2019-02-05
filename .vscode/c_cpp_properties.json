@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "ESP32-WSL-UBUNTU18.04",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/build/include/",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/freertos/include",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/newlib/include",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/driver/include",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/esp32/include",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/soc/include",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/soc/esp32/include",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/fatfs/test_fatfs_host",
+                "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/heap/include"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "${workspaceFolder}/build/include/**",
+                    "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/esp-idf/components/**",
+                    "C:/Users/tanin/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/taninlx/esp/xtensa-esp32-elf/xtensa-esp32-elf/include"
+                ]
+            },
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
