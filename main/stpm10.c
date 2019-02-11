@@ -67,6 +67,7 @@ void stpm10_write(uint8_t addr, uint8_t val)
     // Enter idle state before start writing
     gpio_set_level(stpm10.SCS, 1);
     gpio_set_level(stpm10.SYN, 1);
+    ets_delay_us(10);
 
     // start writing
     gpio_set_level(stpm10.SCS, 0);
@@ -129,5 +130,16 @@ void stpm10_read(uint32_t data[], uint8_t len)
 
 float stpm10_read_vrms(uint32_t data[]) {
     int x_u_rms = (data[DEV] >> 16) & 0x7FF;
-    return x_u_rms * V_REF / (VOLTAGE_GAIN * VOLTAGE_CALIBRATE * K_INT_CONPENSATE * K_INT * K_DIF * VOLTAGE_LEN * K_VOLTAGE_T);
+    return (x_u_rms * V_REF) / (VOLTAGE_CHANNEL_GAIN * VOLTAGE_CALIBRATE * K_INT_CONPENSATE * K_INT * K_DIF * VOLTAGE_LEN * K_VOLTAGE_T);
 }
+
+
+float stpm10_read_irms(uint32_t data[]) {
+	int x_i_rms = data[DEV] & 0xFFFF;
+	return x_i_rms * V_REF / (CURRENT_SESITIVITY * CURRENT_CHANNEL_GAIN * CURRENT_CALIBRATE * K_INT * K_INT_CONPENSATE * K_DIF * CURRENT_LEN);
+}
+
+
+
+
+
