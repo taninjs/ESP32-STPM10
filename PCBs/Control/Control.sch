@@ -42,7 +42,7 @@ Wire Wire Line
 Wire Wire Line
 	1300 1700 1200 1700
 $Comp
-L MCU_Module_Custom:DOIT_ESP32_Devkit_v1 B2
+L Control-rescue:DOIT_ESP32_Devkit_v1-MCU_Module_Custom B2
 U 1 1 5BF7BA5F
 P 4950 1300
 F 0 "B2" H 5250 1765 50  0000 C CNN
@@ -233,7 +233,7 @@ Wire Wire Line
 Wire Wire Line
 	1700 3650 1550 3650
 $Comp
-L RFM-0505S:RFM-0505S PS1
+L Control-rescue:RFM-0505S-RFM-0505S PS1
 U 1 1 5BF39FF2
 P 1900 1300
 F 0 "PS1" H 2500 935 50  0000 C CNN
@@ -340,7 +340,7 @@ F 3 "" H 1150 3050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Arduino_Module_Custom:128x64_OLED_Display DS1
+L Control-rescue:128x64_OLED_Display-Arduino_Module_Custom DS1
 U 1 1 5BF42832
 P 10000 1400
 F 0 "DS1" H 9450 1800 50  0000 L CNN
@@ -374,7 +374,7 @@ $EndComp
 Wire Wire Line
 	5800 2500 5950 2500
 $Comp
-L Arduino_Module_Custom:Micro_SD_Card_Module B1
+L Control-rescue:Micro_SD_Card_Module-Arduino_Module_Custom B1
 U 1 1 5BF75232
 P 1850 5000
 F 0 "B1" H 1820 5717 50  0000 C CNN
@@ -1034,7 +1034,7 @@ Wire Wire Line
 Wire Wire Line
 	10150 1850 10150 2250
 $Comp
-L SparkFun-Boards:ARDUINO_PRO_MINI B?
+L Control-rescue:ARDUINO_PRO_MINI-SparkFun-Boards B?
 U 1 1 5C01C3E7
 P 8450 1800
 F 0 "B?" H 8450 846 45  0000 C CNN
