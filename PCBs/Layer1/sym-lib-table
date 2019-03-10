@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Control)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/symbols/Control.lib)(options "")(descr ""))
+  (lib (name Smart_Meter)(type Legacy)(uri "/home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/symbols/Smart Meter.lib")(options "")(descr ""))
+)
