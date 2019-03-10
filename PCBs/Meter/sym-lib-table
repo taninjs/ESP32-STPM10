@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name STPM)(type Legacy)(uri C:/Users/tanin/Documents/PCBs/Libraries/custom/ICs/STPM.lib)(options "")(descr ""))
-  (lib (name Meter-rescue)(type Legacy)(uri ${KIPRJMOD}/Meter-rescue.lib)(options "")(descr ""))
-)

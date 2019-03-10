@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name RFM-0505S)(type Legacy)(uri C:/Users/tanin/Documents/PCBs/Libraries/custom/RFM-0505S/RFM-0505S.lib)(options "")(descr ""))
-  (lib (name Control-rescue)(type Legacy)(uri ${KIPRJMOD}/Control-rescue.lib)(options "")(descr ""))
-)
