@@ -1240,8 +1240,5 @@ Text Label 5350 6100 2    50   ~ 0
 CS
 Text Label 5350 6800 2    50   ~ 0
 MOSI
-Text GLabel 2150 5900 0    50   Input ~ 0
-MOSI
-Wire Wire Line
-	2150 5900 2300 5900
+NoConn ~ 2300 5900
 $EndSCHEMATC
