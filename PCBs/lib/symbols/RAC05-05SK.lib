@@ -1,27 +1,27 @@
-EESchema-LIBRARY Version 2.3
+EESchema-LIBRARY Version 2.4
 #encoding utf-8
-#SamacSys ECAD Model RAC05-05SK
-#/898800/71551/2.36/5/4/Power Supply
+#
+# RAC05-05SK
+#
 DEF RAC05-05SK PS 0 30 Y Y 1 F N
 F0 "PS" 1350 300 50 H V L CNN
 F1 "RAC05-05SK" 1350 200 50 H V L CNN
 F2 "RAC05-12SK" 1350 100 50 H I L CNN
 F3 "http://www.mouser.com/datasheet/2/468/RAC05-K-1140238.pdf" 1350 0 50 H I L CNN
 F4 "Recom 5W Encapsulated Switch Mode Power Supply, 1A, 5V dc" 1350 -100 50 H I L CNN "Description"
-F5 "" 1350 -200 50 H I L CNN "Height"
-F6 "RECOM Power" 1350 -300 50 H I L CNN "Manufacturer_Name"
-F7 "RAC05-05SK" 1350 -400 50 H I L CNN "Manufacturer_Part_Number"
-F8 "1446298" 1350 -500 50 H I L CNN "RS Part Number"
-F9 "http://uk.rs-online.com/web/p/products/1446298" 1350 -600 50 H I L CNN "RS Price/Stock"
-F10 "919-RAC05-05SK" 1350 -700 50 H I L CNN "Mouser Part Number"
-F11 "https://www.mouser.com/Search/Refine.aspx?Keyword=919-RAC05-05SK" 1350 -800 50 H I L CNN "Mouser Price/Stock"
+F5 "RECOM Power" 1350 -300 50 H I L CNN "Manufacturer_Name"
+F6 "RAC05-05SK" 1350 -400 50 H I L CNN "Manufacturer_Part_Number"
+F7 "1446298" 1350 -500 50 H I L CNN "RS Part Number"
+F8 "http://uk.rs-online.com/web/p/products/1446298" 1350 -600 50 H I L CNN "RS Price/Stock"
+F9 "919-RAC05-05SK" 1350 -700 50 H I L CNN "Mouser Part Number"
+F10 "https://www.mouser.com/Search/Refine.aspx?Keyword=919-RAC05-05SK" 1350 -800 50 H I L CNN "Mouser Price/Stock"
 DRAW
+P 5 0 1 6 200 100 1300 100 1300 -300 200 -300 200 100 N
 X VAC_IN_(L) 1 0 0 200 R 50 50 0 0 B
 X VAC_IN_(N) 2 0 -100 200 R 50 50 0 0 B
 X NC 3 0 -200 200 R 50 50 0 0 B
-X -VOUT 4 1500 0 200 L 50 50 0 0 B
-X +VOUT 5 1500 -100 200 L 50 50 0 0 B
-P 5 0 1 6 200 100 1300 100 1300 -300 200 -300 200 100 N
+X -VOUT 4 1500 0 200 L 50 50 0 0 w
+X +VOUT 5 1500 -100 200 L 50 50 0 0 w
 ENDDRAW
 ENDDEF
 #

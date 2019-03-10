@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name Arduino_mini)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/Arduino_mini.pretty)(options "")(descr ""))
+  (lib (name CT)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/CT.pretty)(options "")(descr ""))
+  (lib (name ESP32)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/ESP32.pretty)(options "")(descr ""))
+  (lib (name levelshifter)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/levelshifter.pretty)(options "")(descr ""))
+  (lib (name SDCard)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/SDCard.pretty)(options "")(descr ""))
+  (lib (name RAC05-05SK)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/RAC05-05SK.mod)(options "")(descr ""))
+)

@@ -1081,6 +1081,7 @@ NoConn ~ 2300 6300
 NoConn ~ 2300 6200
 NoConn ~ 2300 6100
 NoConn ~ 2300 6000
+NoConn ~ 2300 5900
 NoConn ~ 10450 5800
 Wire Wire Line
 	3800 1650 3950 1650
@@ -1232,16 +1233,4 @@ Wire Wire Line
 Connection ~ 4700 6400
 Wire Wire Line
 	4700 6400 4850 6400
-Text Label 5350 6300 2    50   ~ 0
-MISO
-Text Label 5350 6200 2    50   ~ 0
-CLK
-Text Label 5350 6100 2    50   ~ 0
-CS
-Text Label 5350 6800 2    50   ~ 0
-MOSI
-Text GLabel 2150 5900 0    50   Input ~ 0
-MOSI
-Wire Wire Line
-	2150 5900 2300 5900
 $EndSCHEMATC
