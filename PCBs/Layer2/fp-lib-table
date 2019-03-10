@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name Arduino_mini)(type KiCad)(uri "C:/Users/bbt01/Desktop/Smart Meter/Control/Arduino_mini.pretty")(options "")(descr ""))
+  (lib (name SDCard)(type KiCad)(uri "C:/Users/bbt01/Desktop/Smart Meter/Control/SDCard.pretty")(options "")(descr ""))
+)
