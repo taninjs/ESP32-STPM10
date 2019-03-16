@@ -50,6 +50,12 @@ void http_post(float incremental, float total, float voltage, float current, flo
 
 	// POST
 	char post_data[100];
+
+	if (pf != pf) {
+		// pf is nan
+		pf = 0;
+	}
+
 	sprintf(post_data,
 		"incremental=%.4f&total=%.4f&voltage=%.4f&current=%.4f&power=%.4f&pf=%.2f",
 		incremental,

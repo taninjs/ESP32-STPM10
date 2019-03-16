@@ -98,6 +98,7 @@ double sd_read_total_energy(energy_type type)
 		char *val = strtok(NULL, "=");
 
 		if (strcmp(key, selected_type) == 0) {
+			fclose(f);
 			return atof(val);
 		}
 	}

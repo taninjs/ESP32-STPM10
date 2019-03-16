@@ -20,10 +20,10 @@
 #define STPM10_SDA GPIO_NUM_25
 #define STPM10_SCS GPIO_NUM_27
 
+#define SDHC_D8_CS   5
 #define SDHC_D5_SCK  18
 #define SDHC_D6_MISO 19
 #define SDHC_D7_MOSI 23
-#define SDHC_D8_CS   5
 
 #define STPM10_ENERGY_CALIBRATOR 5.8128e-6 // K_AW active energy
 
@@ -199,9 +199,8 @@ void app_main() {
 	/* Initialize WIFI connection */
 	app_wifi_initialise();
 
-
 	/* Initialize Tasks */
-	xTaskCreate(&sd_task, "sd_task", 2048, NULL, 4, NULL);
+	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
 	xTaskCreate(&meter_task, "meter_task", 4096, NULL, 5, NULL);
 	xTaskCreate(&print_task, "print_task", 2048, NULL, 3, NULL);
 	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
