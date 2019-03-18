@@ -6,4 +6,5 @@
   (lib (name levelshifter)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/levelshifter.pretty)(options "")(descr ""))
   (lib (name SDCard)(type KiCad)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/SDCard.pretty)(options "")(descr ""))
   (lib (name RAC05-05SK)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/footprints/RAC05-05SK.mod)(options "")(descr ""))
+  (lib (name MIcro_USB)(type KiCad)(uri C:/Users/bbt01/Desktop/ESP32-STPM01/ESP32-STPM10/PCBs/lib/footprints/MIcro_USB.pretty)(options "")(descr ""))
 )

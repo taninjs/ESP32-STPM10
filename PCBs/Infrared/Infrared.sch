@@ -323,7 +323,7 @@ U 1 1 5C847D09
 P 3500 1650
 F 0 "J1" H 3606 2028 50  0000 C CNN
 F 1 "Conn_01x05_Male" H 3606 1937 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 3500 1650 50  0001 C CNN
+F 2 "MIcro_USB:PinHeader_1x05_P2.54mm_Vertical" H 3500 1650 50  0001 C CNN
 F 3 "~" H 3500 1650 50  0001 C CNN
 	1    3500 1650
 	1    0    0    -1  
@@ -354,7 +354,7 @@ F 3 "" H 3700 1850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SHT3X:SHT3X_Breakout_Board U3
+L Infrared-rescue:SHT3X_Breakout_Board-SHT3X U3
 U 1 1 5C8F5CEE
 P 5550 4900
 F 0 "U3" H 5400 4850 50  0000 L CNN
