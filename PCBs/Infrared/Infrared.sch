@@ -15,7 +15,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Lighting_PCB:ESP-32S U2
+L Infrared-rescue:ESP-32S-Lighting_PCB U2
 U 1 1 5BF3AADC
 P 6500 3150
 F 0 "U2" H 6475 4537 60  0000 C CNN
@@ -353,4 +353,114 @@ F 3 "" H 3700 1850 50  0001 C CNN
 	1    3700 1850
 	1    0    0    -1  
 $EndComp
+$Comp
+L SHT3X:SHT3X_Breakout_Board U3
+U 1 1 5C8F5CEE
+P 5550 4900
+F 0 "U3" H 5400 4850 50  0000 L CNN
+F 1 "SHT3X_Breakout_Board" H 5550 4850 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 5950 5550 50  0001 C CNN
+F 3 "" H 5950 5550 50  0001 C CNN
+	1    5550 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0103
+U 1 1 5C8F5FBF
+P 5550 2450
+F 0 "#PWR0103" H 5550 2300 50  0001 C CNN
+F 1 "+3V3" V 5565 2578 50  0000 L CNN
+F 2 "" H 5550 2450 50  0001 C CNN
+F 3 "" H 5550 2450 50  0001 C CNN
+	1    5550 2450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3V3 #PWR0104
+U 1 1 5C8F6026
+P 5900 4250
+F 0 "#PWR0104" H 5900 4100 50  0001 C CNN
+F 1 "+3V3" H 5915 4423 50  0000 C CNN
+F 2 "" H 5900 4250 50  0001 C CNN
+F 3 "" H 5900 4250 50  0001 C CNN
+	1    5900 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 5C8F7315
+P 5800 4250
+F 0 "#PWR0105" H 5800 4000 50  0001 C CNN
+F 1 "GND" V 5805 4122 50  0000 R CNN
+F 2 "" H 5800 4250 50  0001 C CNN
+F 3 "" H 5800 4250 50  0001 C CNN
+	1    5800 4250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5800 4250 5800 4300
+Wire Wire Line
+	5900 4250 5900 4300
+Wire Wire Line
+	5600 4300 5350 4300
+Wire Wire Line
+	5350 4300 5350 3450
+Wire Wire Line
+	5350 3450 5550 3450
+Wire Wire Line
+	5700 4300 5700 4200
+Wire Wire Line
+	5700 4200 5450 4200
+Wire Wire Line
+	5450 4200 5450 3750
+Wire Wire Line
+	5450 3750 5550 3750
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5C8FA4B1
+P 8100 2200
+F 0 "H1" H 8200 2246 50  0000 L CNN
+F 1 "MountingHole" H 8200 2155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_DIN965" H 8100 2200 50  0001 C CNN
+F 3 "~" H 8100 2200 50  0001 C CNN
+	1    8100 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 5C8FA539
+P 8100 2450
+F 0 "H2" H 8200 2496 50  0000 L CNN
+F 1 "MountingHole" H 8200 2405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_DIN965" H 8100 2450 50  0001 C CNN
+F 3 "~" H 8100 2450 50  0001 C CNN
+	1    8100 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5C8FA575
+P 8100 2700
+F 0 "H3" H 8200 2746 50  0000 L CNN
+F 1 "MountingHole" H 8200 2655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_DIN965" H 8100 2700 50  0001 C CNN
+F 3 "~" H 8100 2700 50  0001 C CNN
+	1    8100 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5C8FA5BB
+P 8100 2950
+F 0 "H4" H 8200 2996 50  0000 L CNN
+F 1 "MountingHole" H 8200 2905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_DIN965" H 8100 2950 50  0001 C CNN
+F 3 "~" H 8100 2950 50  0001 C CNN
+	1    8100 2950
+	1    0    0    -1  
+$EndComp
+Text GLabel 5350 4200 0    50   Input ~ 0
+SDA
+Text GLabel 5450 4050 2    50   Input ~ 0
+SCL
 $EndSCHEMATC

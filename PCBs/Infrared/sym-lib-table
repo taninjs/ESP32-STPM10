@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Infrared-rescue)(type Legacy)(uri ${KIPRJMOD}/Infrared-rescue.lib)(options "")(descr ""))
+  (lib (name SHT3X)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/symbols/SHT3X.lib)(options "")(descr ""))
+)
