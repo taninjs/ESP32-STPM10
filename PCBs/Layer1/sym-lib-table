@@ -5,4 +5,5 @@
   (lib (name Meter)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/symbols/Meter.lib)(options "")(descr ""))
   (lib (name Level_shifter)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/symbols/Level_shifter.lib)(options "")(descr ""))
   (lib (name SD_Card)(type Legacy)(uri /home/taninjs/esp/workspace/ESP32-STPM10/PCBs/lib/symbols/SD_Card.lib)(options "")(descr ""))
+  (lib (name Layer1-rescue)(type Legacy)(uri ${KIPRJMOD}/Layer1-rescue.lib)(options "")(descr ""))
 )
