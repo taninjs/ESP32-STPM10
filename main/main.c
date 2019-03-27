@@ -13,7 +13,7 @@
 #include "nvs_flash.h"
 #include "driver/timer.h"
 #include "sd.h"
-
+#include "driver/uart.h"
 
 #define STPM10_SYN GPIO_NUM_13
 #define STPM10_SCK GPIO_NUM_14
@@ -24,6 +24,9 @@
 #define SDHC_D5_SCK  18
 #define SDHC_D6_MISO 19
 #define SDHC_D7_MOSI 23
+
+#define UART_TX GPIO_NUM_17
+#define UART_RX GPIO_NUM_16
 
 #define STPM10_ENERGY_CALIBRATOR 5.8128e-6 // K_AW active energy
 
@@ -187,6 +190,34 @@ void sd_task(void *pvParameter)
 	}
 }
 
+void uart_task(void *pvParameter)
+{
+	uart_config_t config = {
+		.baud_rate = 74800,
+		.data_bits = UART_DATA_8_BITS,
+		.parity    = UART_PARITY_DISABLE,
+		.stop_bits = UART_STOP_BITS_1,
+		.flow_ctrl = UART_HW_FLOWCTRL_DISABLE
+	};
+
+	uart_param_config(UART_NUM_1, &config);
+	uart_set_pin(UART_NUM_1, UART_TX, UART_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+	uart_driver_install(UART_NUM_1, 2048, 0, 0, NULL, 0);
+
+	for (;;) {
+		char msg[50];
+		sprintf(msg, "%.2f;%.2f;%.2f;%.2f;%.2f\n",
+				stpm10_read_vrms(stpm10_data),
+				stpm10_read_irms(stpm10_data),
+				P,
+				pf,
+				active_energy.total
+		);
+		uart_write_bytes(UART_NUM_1, msg, strlen(msg));
+		vTaskDelay(100 / portTICK_PERIOD_MS);
+	}
+}
+
 void app_main() {
 	/* Initialize Non-Volatile Flash */
 	esp_err_t ret = nvs_flash_init();
@@ -204,4 +235,5 @@ void app_main() {
 	xTaskCreate(&meter_task, "meter_task", 4096, NULL, 5, NULL);
 	xTaskCreate(&print_task, "print_task", 2048, NULL, 3, NULL);
 	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
+	xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
 }

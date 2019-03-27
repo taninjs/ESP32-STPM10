@@ -807,7 +807,7 @@ U 1 1 5C94096F
 P 8000 1050
 F 0 "J2" V 7835 976 50  0000 C CNN
 F 1 "Conn_01x08_Male" V 7926 976 50  0000 C CNN
-F 2 "" H 8000 1050 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 8000 1050 50  0001 C CNN
 F 3 "~" H 8000 1050 50  0001 C CNN
 	1    8000 1050
 	0    1    1    0   

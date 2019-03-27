@@ -759,7 +759,7 @@ Wire Wire Line
 Wire Wire Line
 	7900 1250 7900 2100
 $Comp
-L arduinopromini:arduinopromini U1
+L Display-rescue:arduinopromini-arduinopromini U1
 U 1 1 5C9155A1
 P 4750 1600
 F 0 "U1" H 5050 2500 50  0000 C CNN
@@ -886,4 +886,26 @@ Wire Wire Line
 Connection ~ 6450 1550
 Wire Wire Line
 	6450 1550 8000 1550
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 5C917DF9
+P 3100 6500
+F 0 "H5" H 3200 6546 50  0000 L CNN
+F 1 "MountingHole" H 3200 6455 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.7mm_M2.5_DIN965" H 3100 6500 50  0001 C CNN
+F 3 "~" H 3100 6500 50  0001 C CNN
+	1    3100 6500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 5C917E6B
+P 3100 6700
+F 0 "H6" H 3200 6746 50  0000 L CNN
+F 1 "MountingHole" H 3200 6655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.7mm_M2.5_DIN965" H 3100 6700 50  0001 C CNN
+F 3 "~" H 3100 6700 50  0001 C CNN
+	1    3100 6700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

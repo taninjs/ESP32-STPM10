@@ -2,4 +2,5 @@
   (lib (name arduinomini)(type Legacy)(uri "C:/Users/bbt01/Desktop/Smart Meter/Control/arduinomini.lib")(options "")(descr ""))
   (lib (name Control-rescue)(type Legacy)(uri "C:/Users/bbt01/Desktop/Smart Meter/Control/Control-rescue.lib")(options "")(descr ""))
   (lib (name SD_Card)(type Legacy)(uri "C:/Users/bbt01/Desktop/Smart Meter/Control/SD_Card.lib")(options "")(descr ""))
+  (lib (name Display-rescue)(type Legacy)(uri ${KIPRJMOD}/Display-rescue.lib)(options "")(descr ""))
 )
