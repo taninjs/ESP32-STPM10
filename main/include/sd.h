@@ -8,6 +8,8 @@
 #ifndef MAIN_INCLUDE_SD_H_
 #define MAIN_INCLUDE_SD_H_
 
+#include <stdint.h>
+
 #define __SD_GET_ENERGY_TYPE_TEXT(type, out) \
 	switch (type) {\
 	case ACTIVE:\
@@ -37,6 +39,6 @@ typedef enum {
 
 void sd_init(sd_config_t cfg);
 double sd_read_total_energy(energy_type type);
-void sd_save_total_energy(double active_energy, double reactive_energy, double apparent_energy);
+void sd_save_total_energy(double active_energy, double reactive_energy, double apparent_energy, uint64_t energy);
 
 #endif /* MAIN_INCLUDE_SD_H_ */

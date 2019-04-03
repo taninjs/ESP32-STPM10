@@ -32,6 +32,7 @@
 
 spi_device_handle_t spi;
 uint32_t stpm10_data[8];
+uint64_t stpm10_type0_energy_counter = 0;
 
 typedef struct {
 	uint32_t new;
@@ -119,6 +120,7 @@ void meter_task(void *pvParameter) {
 		active_energy.total +=  dEa;
 		reactive_energy.total += dEr;
 		apparent_energy.total += dEs;
+		stpm10_type0_energy_counter += __STPM10_GET_ACTIVE_ENERGY(stpm10_data);
 
 		active_energy.old = active_energy.new;
 		reactive_energy.old = reactive_energy.new;
@@ -133,7 +135,7 @@ void print_task(void *pvParameter)
 	int time = 0;
 
 	for(;;) {
-//		for (int i = 0; i < 8; i++) printf("%#.8x\n", stpm10_data[i]);
+		for (int i = 0; i < 8; i++) printf("%#.8x\n", stpm10_data[i]);
 
 		int x_u_rms = (stpm10_data[DEV] >> 16) & 0x7FF;
 		int x_i_rms = (stpm10_data[DEV] & 0xFFFF);
@@ -144,6 +146,7 @@ void print_task(void *pvParameter)
 		printf("freq: %f Hz\n", stpm10_read_freq(stpm10_data));
 
 		printf("Active Energy: %f Wh\n", active_energy.total);
+		printf("Active Energy: %llu (digital)", stpm10_type0_energy_counter);
 		printf("Reactive Energy: %f Wh\n", reactive_energy.total);
 		printf("Apparent Energy: %f Wh\n", apparent_energy.total);
 
@@ -185,7 +188,7 @@ void sd_task(void *pvParameter)
 	apparent_energy.total = sd_read_total_energy(APPARENT);
 
 	for (;;) {
-		sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total);
+		sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total, stpm10_type0_energy_counter);
 		vTaskDelay(1000 / portTICK_PERIOD_MS);
 	}
 }
@@ -231,9 +234,9 @@ void app_main() {
 	app_wifi_initialise();
 
 	/* Initialize Tasks */
-	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
+//	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
 	xTaskCreate(&meter_task, "meter_task", 4096, NULL, 5, NULL);
 	xTaskCreate(&print_task, "print_task", 2048, NULL, 3, NULL);
-	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
-	xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
+//	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
+//	xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
 }
