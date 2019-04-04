@@ -72,6 +72,7 @@ void meter_task(void *pvParameter) {
 	for (int i = 0; i < 8; i++) {
 		stpm10_write(CHV + i, (0x8F >> i) & 0x01);
 	}
+	
 
 	stpm10_enter_read_mode();
 	vTaskDelay(2000 / portTICK_PERIOD_MS);
@@ -176,7 +177,7 @@ void http_task(void *pvParameter)
 		float irms = stpm10_read_irms(stpm10_data);
 
 		http_post(0, active_energy.total, vrms, irms, P, pf);
-		vTaskDelay(5000 / portTICK_PERIOD_MS);
+		vTaskDelay(3000 / portTICK_PERIOD_MS);
 	}
 }
 

@@ -119,7 +119,7 @@ double sd_read_total_energy(energy_type type)
 	FILE* f = fopen("/sdcard/total.txt", "r");
 	if (f == NULL) {
 		ESP_LOGE(TAG, "Failed to open file for reading !! returning 0 !!");
-		return -1;
+		return 0.00;
 	}
 
 	char line[64];
@@ -135,5 +135,5 @@ double sd_read_total_energy(energy_type type)
 	fclose(f);
 
 	ESP_LOGE(TAG, "Failed to find key");
-	return -1;
+	return 0.00;
 }
