@@ -23,7 +23,7 @@
 #define VOLTAGE_CALIBRATE   		0.8828
 #define VOLTAGE_LEN         		2048    	// RMS Voltage Register Length = 2^11
 
-#define CURRENT_SESITIVITY  		0.00117 	// [V/A]
+#define CURRENT_SESITIVITY  		0.001175 	// [V/A]
 #define CURRENT_CHANNEL_GAIN		8
 #define CURRENT_CALIBRATE			0.875
 #define CURRENT_LEN					65536		// RMS Current Register Length 2^16

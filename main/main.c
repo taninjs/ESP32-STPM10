@@ -6,7 +6,7 @@
 #include "driver/gpio.h"
 #include "driver/spi_master.h"
 #include "sdkconfig.h"
-#include "rom/ets_sys.h"
+#include "esp32/rom/ets_sys.h"
 #include "stpm10.h"
 #include "http.h"
 #include "wifi.h"
@@ -28,7 +28,8 @@
 #define UART_TX GPIO_NUM_17
 #define UART_RX GPIO_NUM_16
 
-#define STPM10_ENERGY_CALIBRATOR 5.8128e-6 // K_AW active energy
+#define STPM10_ENERGY_CALIBRATOR 5.7837e-6 // K_AW active energy [unit] Whr/digit
+// #define STPM10_ENERGY_CALIBRATOR 5.82566e-6 
 
 spi_device_handle_t spi;
 uint32_t stpm10_data[8];
@@ -45,6 +46,8 @@ ENERGY reactive_energy = { .new = 0, .old = 0, .total = 0 };
 ENERGY apparent_energy = { .new = 0, .old = 0, .total = 0 };
 double P, Q, S;		// Active Power (P), Reactive Power (Q), Apparent Power (S)
 double pf;			// power factors
+int apptime = 0;
+unsigned long long energy_counter = 0;
 
 void meter_task(void *pvParameter) {
 	stpm10_spi_config_t stpm10_cfg = {
@@ -62,12 +65,12 @@ void meter_task(void *pvParameter) {
 
 	/* Write STPM10 current calibration bits */
 	for (int i = 0; i < 8; i++) {
-		stpm10_write(CHP + i, (0xFF >> i) & 0x01);
+		stpm10_write(CHP + i, (0x90 >> i) & 0x01);
 	}
 
 	/* Write STPM10 voltage calibration bits */
 	for (int i = 0; i < 8; i++) {
-		stpm10_write(CHV + i, (0x8C >> i) & 0x01);
+		stpm10_write(CHV + i, (0x8F >> i) & 0x01);
 	}
 
 	stpm10_enter_read_mode();
@@ -112,6 +115,8 @@ void meter_task(void *pvParameter) {
 		double dEr = ((reactive_energy.new - reactive_energy.old) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR * 2; // [unit]VAR-hr
 		double dEs = ((apparent_energy.new - apparent_energy.old) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR; // [unit]VA-hr
 
+		energy_counter += ((active_energy.new   - active_energy.old) & 0x000FFFFF);
+
 		P = dEa/dt; // [unit]Watt
 		Q = dEr/dt; // [unit]Watt
 		S = dEs/dt; // [unit]Watt
@@ -132,10 +137,12 @@ void meter_task(void *pvParameter) {
 
 void print_task(void *pvParameter)
 {
-	int time = 0;
-
 	for(;;) {
+<<<<<<< Updated upstream
 		for (int i = 0; i < 8; i++) printf("%#.8x\n", stpm10_data[i]);
+=======
+		// for (int i = 0; i < 8; i++) printf("%#.8x\n", stpm10_data[i]);
+>>>>>>> Stashed changes
 
 		int x_u_rms = (stpm10_data[DEV] >> 16) & 0x7FF;
 		int x_i_rms = (stpm10_data[DEV] & 0xFFFF);
@@ -152,10 +159,10 @@ void print_task(void *pvParameter)
 
 		printf("P: %.4f, Q: %.4f, S: %.4f\n", P, Q, S);
 		printf("pf: %.2f\n\n", pf);
-		printf("time: %d\n\n", time);
+		// printf("time: %d\n\n", apptime);
 
-		time += 1;
-		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		printf("time: %d, energy_counter: %llu, active_energy: %.5f\n", apptime, energy_counter, active_energy.total / 1000.0);
+		vTaskDelay(3000 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -183,13 +190,21 @@ void sd_task(void *pvParameter)
 	};
 
 	sd_init(sd_cfg);
-	active_energy.total = sd_read_total_energy(ACTIVE);
-	reactive_energy.total = sd_read_total_energy(REACTIVE);
-	apparent_energy.total = sd_read_total_energy(APPARENT);
+	sd_clear_energy_record();
+	// active_energy.total = sd_read_total_energy(ACTIVE);
+	// reactive_energy.total = sd_read_total_energy(REACTIVE);
+	// apparent_energy.total = sd_read_total_energy(APPARENT);
 
 	for (;;) {
+<<<<<<< Updated upstream
 		sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total, stpm10_type0_energy_counter);
 		vTaskDelay(1000 / portTICK_PERIOD_MS);
+=======
+		// sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total);
+		sd_save_energy_record(apptime, energy_counter, active_energy.total);
+		vTaskDelay(3000 / portTICK_PERIOD_MS);
+		apptime += 3;
+>>>>>>> Stashed changes
 	}
 }
 
@@ -237,6 +252,11 @@ void app_main() {
 //	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
 	xTaskCreate(&meter_task, "meter_task", 4096, NULL, 5, NULL);
 	xTaskCreate(&print_task, "print_task", 2048, NULL, 3, NULL);
+<<<<<<< Updated upstream
 //	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
 //	xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
+=======
+	// xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
+	// xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
+>>>>>>> Stashed changes
 }

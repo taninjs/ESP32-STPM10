@@ -39,6 +39,12 @@ typedef enum {
 
 void sd_init(sd_config_t cfg);
 double sd_read_total_energy(energy_type type);
+<<<<<<< Updated upstream
 void sd_save_total_energy(double active_energy, double reactive_energy, double apparent_energy, uint64_t energy);
+=======
+void sd_clear_energy_record();
+void sd_save_energy_record(int time, unsigned long long energy_counter, double energy_active);
+void sd_save_total_energy(double active_energy, double reactive_energy, double apparent_energy);
+>>>>>>> Stashed changes
 
 #endif /* MAIN_INCLUDE_SD_H_ */

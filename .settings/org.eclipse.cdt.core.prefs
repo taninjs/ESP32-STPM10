@@ -10,3 +10,17 @@ environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2081372900/PATH/op
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2081372900/PATH/value=/home/taninjs/esp/xtensa-esp32-elf/bin
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2081372900/append=true
 environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2081372900/appendContributed=true
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/BATCH_BUILD/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/BATCH_BUILD/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/BATCH_BUILD/value=1
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/IDF_PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/IDF_PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/IDF_PATH/value=/Users/taninjs/esp/esp-idf
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/PATH/value=/bin\:/usr/bin\:/usr/sbin\:/sbin\:/Users/taninjs/esp/xtensa-esp32-elf/bin
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/PYTHONPATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/PYTHONPATH/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/PYTHONPATH/value=/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2102423223/appendContributed=true

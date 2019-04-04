@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/unistd.h>
+#include <sys/stat.h>
 #include "sd.h"
 #include "driver/sdspi_host.h"
 #include "driver/sdmmc_host.h"
@@ -69,6 +71,33 @@ void sd_save_total_energy(double active_energy, double reactive_energy, double a
 	fprintf(f, "energy_counter=%llu\n", energy);
 	fclose(f);
 	ESP_LOGI(TAG, "File written");
+}
+
+void sd_save_energy_record(int apptime, unsigned long long energy_counter, double energy_active)
+{
+	FILE* f = fopen("/sdcard/record.csv", "a");
+
+	if (f == NULL) {
+		ESP_LOGE(TAG, "Failed to open file '/sdcard/record.csv' for writing");
+		return;
+	}
+
+	fprintf(f, "%d, %llu, %.4f\n", apptime, energy_counter, energy_active);
+	fclose(f);
+	ESP_LOGI(TAG, "File written");
+}
+
+void sd_clear_energy_record()
+{
+	struct stat st;
+    if (stat("/sdcard/record.csv", &st) == 0) {
+        // Delete it if it exists
+        unlink("/sdcard/record.csv");
+    }
+
+	FILE* f = fopen("/sdcard/record.csv", "w");
+	fprintf(f, "time, energy_counter, active_energy\n");
+	fclose(f);
 }
 
 double sd_read_total_energy(energy_type type)
