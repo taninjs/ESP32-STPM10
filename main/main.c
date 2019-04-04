@@ -139,11 +139,7 @@ void meter_task(void *pvParameter) {
 void print_task(void *pvParameter)
 {
 	for(;;) {
-<<<<<<< Updated upstream
 		for (int i = 0; i < 8; i++) printf("%#.8x\n", stpm10_data[i]);
-=======
-		// for (int i = 0; i < 8; i++) printf("%#.8x\n", stpm10_data[i]);
->>>>>>> Stashed changes
 
 		int x_u_rms = (stpm10_data[DEV] >> 16) & 0x7FF;
 		int x_i_rms = (stpm10_data[DEV] & 0xFFFF);
@@ -197,15 +193,10 @@ void sd_task(void *pvParameter)
 	// apparent_energy.total = sd_read_total_energy(APPARENT);
 
 	for (;;) {
-<<<<<<< Updated upstream
-		sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total, stpm10_type0_energy_counter);
-		vTaskDelay(1000 / portTICK_PERIOD_MS);
-=======
 		// sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total);
 		sd_save_energy_record(apptime, energy_counter, active_energy.total);
 		vTaskDelay(3000 / portTICK_PERIOD_MS);
 		apptime += 3;
->>>>>>> Stashed changes
 	}
 }
 
@@ -250,14 +241,9 @@ void app_main() {
 	app_wifi_initialise();
 
 	/* Initialize Tasks */
-//	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
+	//	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
 	xTaskCreate(&meter_task, "meter_task", 4096, NULL, 5, NULL);
 	xTaskCreate(&print_task, "print_task", 2048, NULL, 3, NULL);
-<<<<<<< Updated upstream
-//	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
-//	xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
-=======
 	// xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
 	// xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
->>>>>>> Stashed changes
 }
