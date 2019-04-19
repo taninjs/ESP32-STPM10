@@ -43,7 +43,7 @@
 #define __STPM10_GET_ACTIVE_ENERGY(stpm10_data) 		((stpm10_data[DAP] & 0x0FFFFF00) >> 8)
 #define __STPM10_GET_REACTIVE_ENERGY(stpm10_data) 		((stpm10_data[DRP] & 0x0FFFFF00) >> 8)
 #define __STPM10_GET_APPARENT_ENERGY(stpm10_data) 		((stpm10_data[DSP] & 0x0FFFFF00) >> 8)
-
+#define __STPM10_IS_NO_LOAD(stpm10_data)                ((stpm10_data[DAP] & 0x00000001))
 typedef struct {
     int SCS;
     int SYN;

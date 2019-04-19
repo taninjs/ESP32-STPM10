@@ -56,7 +56,7 @@ void sd_init(sd_config_t cfg) {
     sdmmc_card_print_info(stdout, card);
 }
 
-void sd_save_total_energy(double active_energy, double reactive_energy, double apparent_energy, uint64_t energy)
+void sd_save_total_energy(double active_energy, double reactive_energy, double apparent_energy)
 {
 	FILE* f = fopen("/sdcard/total.txt", "w");
 
@@ -68,7 +68,6 @@ void sd_save_total_energy(double active_energy, double reactive_energy, double a
 	fprintf(f, "active_energy=%.6f\n", active_energy);
 	fprintf(f, "reactive_energy=%.6f\n", reactive_energy);
 	fprintf(f, "apparent_energy=%.6f\n", apparent_energy);
-	fprintf(f, "energy_counter=%llu\n", energy);
 	fclose(f);
 	ESP_LOGI(TAG, "File written");
 }

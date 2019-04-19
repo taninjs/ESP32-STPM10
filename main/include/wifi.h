@@ -10,8 +10,8 @@
 #ifndef _MAIN_WIFI_H_
 #define _MAIN_WIFI_H_
 
-#define WIFI_SSID "PEARL_LAB_STUDENT"
-#define WIFI_PASSWORD "41414141424242420102030405"
+#define WIFI_SSID "Project2019"
+#define WIFI_PASSWORD ""
 
 void app_wifi_initialise(void);
 void app_wifi_wait_connected();

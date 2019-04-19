@@ -36,8 +36,8 @@ uint32_t stpm10_data[8];
 uint64_t stpm10_type0_energy_counter = 0;
 
 typedef struct {
-	uint32_t new;
-	uint32_t old;   // previous energy value
+	long new;
+	long old;   // previous energy value
 	double total;	// Wh
 } ENERGY;
 
@@ -59,6 +59,7 @@ void meter_task(void *pvParameter) {
 	};
 
 	stpm10_init(stpm10_cfg, WRITE);
+	vTaskDelay(1000 / portTICK_PERIOD_MS);
 
 	stpm10_write(47, 1);
 	stpm10_write(47, 1);
@@ -75,7 +76,7 @@ void meter_task(void *pvParameter) {
 	
 
 	stpm10_enter_read_mode();
-	vTaskDelay(2000 / portTICK_PERIOD_MS);
+	vTaskDelay(1000 / portTICK_PERIOD_MS);
 
 	// start timer
 	timer_config_t timer00_cfg = {
@@ -108,29 +109,40 @@ void meter_task(void *pvParameter) {
 		// reset timer
 		timer_set_counter_value(TIMER_GROUP_0, TIMER_0, 0x00000000ULL);
 
-		active_energy.new = __STPM10_GET_ACTIVE_ENERGY(stpm10_data);
-		reactive_energy.new = __STPM10_GET_REACTIVE_ENERGY(stpm10_data);
-		apparent_energy.new = __STPM10_GET_APPARENT_ENERGY(stpm10_data);
+		int x_i_rms = (stpm10_data[DEV] & 0xFFFF);
+		if (!__STPM10_IS_NO_LOAD(stpm10_data) && x_i_rms > 10) {
 
-		double dEa = ((active_energy.new   - active_energy.old  ) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR; // [unit]Watt-hr
-		double dEr = ((reactive_energy.new - reactive_energy.old) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR * 2; // [unit]VAR-hr
-		double dEs = ((apparent_energy.new - apparent_energy.old) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR; // [unit]VA-hr
+			active_energy.new = __STPM10_GET_ACTIVE_ENERGY(stpm10_data);
+			reactive_energy.new = __STPM10_GET_REACTIVE_ENERGY(stpm10_data);
+			apparent_energy.new = __STPM10_GET_APPARENT_ENERGY(stpm10_data);
 
-		energy_counter += ((active_energy.new   - active_energy.old) & 0x000FFFFF);
+			double dEa = 0;
+			if (active_energy.new > active_energy.old){
+				dEa = ((active_energy.new   - active_energy.old  ) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR; // [unit]Watt-hr
+			}
+			double dEr = ((reactive_energy.new - reactive_energy.old) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR * 2; // [unit]VAR-hr
+			double dEs = ((apparent_energy.new - apparent_energy.old) & 0x000FFFFF) * STPM10_ENERGY_CALIBRATOR; // [unit]VA-hr
 
-		P = dEa/dt; // [unit]Watt
-		Q = dEr/dt; // [unit]Watt
-		S = dEs/dt; // [unit]Watt
-		pf = P/S;
+			energy_counter += ((active_energy.new   - active_energy.old) & 0x000FFFFF);
 
-		active_energy.total +=  dEa;
-		reactive_energy.total += dEr;
-		apparent_energy.total += dEs;
-		stpm10_type0_energy_counter += __STPM10_GET_ACTIVE_ENERGY(stpm10_data);
+			P = dEa/dt; // [unit]Watt
+			Q = dEr/dt; // [unit]Watt
+			S = dEs/dt; // [unit]Watt
+			pf = P/S;
 
-		active_energy.old = active_energy.new;
-		reactive_energy.old = reactive_energy.new;
-		apparent_energy.old = apparent_energy.new;
+			active_energy.total +=  dEa;
+			reactive_energy.total += dEr;
+			apparent_energy.total += dEs;
+			stpm10_type0_energy_counter += __STPM10_GET_ACTIVE_ENERGY(stpm10_data);
+
+			active_energy.old = active_energy.new;
+			reactive_energy.old = reactive_energy.new;
+			apparent_energy.old = apparent_energy.new;
+		} else {
+			P = 0.0;
+			Q = 0.0;
+			S = 0.0;
+		}
 
 		vTaskDelay(20 / portTICK_PERIOD_MS);
 	}
@@ -156,7 +168,6 @@ void print_task(void *pvParameter)
 
 		printf("P: %.4f, Q: %.4f, S: %.4f\n", P, Q, S);
 		printf("pf: %.2f\n\n", pf);
-		// printf("time: %d\n\n", apptime);
 
 		printf("time: %d, energy_counter: %llu, active_energy: %.5f\n", apptime, energy_counter, active_energy.total / 1000.0);
 		vTaskDelay(3000 / portTICK_PERIOD_MS);
@@ -172,7 +183,7 @@ void http_task(void *pvParameter)
 		float vrms = stpm10_read_vrms(stpm10_data);
 		float irms = stpm10_read_irms(stpm10_data);
 
-		http_post(0, active_energy.total, vrms, irms, P, pf);
+		http_post(active_energy.total, vrms, irms, P, Q, S, pf, __STPM10_IS_NO_LOAD(stpm10_data));
 		vTaskDelay(3000 / portTICK_PERIOD_MS);
 	}
 }
@@ -188,22 +199,22 @@ void sd_task(void *pvParameter)
 
 	sd_init(sd_cfg);
 	sd_clear_energy_record();
-	// active_energy.total = sd_read_total_energy(ACTIVE);
-	// reactive_energy.total = sd_read_total_energy(REACTIVE);
-	// apparent_energy.total = sd_read_total_energy(APPARENT);
+	active_energy.total = sd_read_total_energy(ACTIVE);
+	reactive_energy.total = sd_read_total_energy(REACTIVE);
+	apparent_energy.total = sd_read_total_energy(APPARENT);
 
 	for (;;) {
-		// sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total);
+		sd_save_total_energy(apparent_energy.total, reactive_energy.total, apparent_energy.total);
 		sd_save_energy_record(apptime, energy_counter, active_energy.total);
-		vTaskDelay(3000 / portTICK_PERIOD_MS);
-		apptime += 3;
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+		apptime += 1;
 	}
 }
 
 void uart_task(void *pvParameter)
 {
 	uart_config_t config = {
-		.baud_rate = 74800,
+		.baud_rate = 9600,
 		.data_bits = UART_DATA_8_BITS,
 		.parity    = UART_PARITY_DISABLE,
 		.stop_bits = UART_STOP_BITS_1,
@@ -215,16 +226,27 @@ void uart_task(void *pvParameter)
 	uart_driver_install(UART_NUM_1, 2048, 0, 0, NULL, 0);
 
 	for (;;) {
-		char msg[50];
-		sprintf(msg, "%.2f;%.2f;%.2f;%.2f;%.2f\n",
+		char msg[80];
+		sprintf(msg, "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;\n",
 				stpm10_read_vrms(stpm10_data),
 				stpm10_read_irms(stpm10_data),
+				stpm10_read_freq(stpm10_data),
+				S,
 				P,
-				pf,
+				Q,
 				active_energy.total
 		);
+		// sprintf(msg, "%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;%.2f;\n",
+		// 		1.00,
+		// 		2.00,
+		// 		3.00,
+		// 		5.00,
+		// 		4.00,
+		// 		6.00,
+		// 		7.00
+		// );
 		uart_write_bytes(UART_NUM_1, msg, strlen(msg));
-		vTaskDelay(100 / portTICK_PERIOD_MS);
+		vTaskDelay(1500 / portTICK_PERIOD_MS);
 	}
 }
 
@@ -241,9 +263,9 @@ void app_main() {
 	app_wifi_initialise();
 
 	/* Initialize Tasks */
-	//	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
+	xTaskCreate(&sd_task, "sd_task", 4096, NULL, 4, NULL);
 	xTaskCreate(&meter_task, "meter_task", 4096, NULL, 5, NULL);
 	xTaskCreate(&print_task, "print_task", 2048, NULL, 3, NULL);
-	// xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
-	// xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
+	xTaskCreate(&http_task, "http_task", 8192, NULL, 4, NULL);
+	xTaskCreate(&uart_task, "uart_task", 2048, NULL, 3, NULL);
 }
